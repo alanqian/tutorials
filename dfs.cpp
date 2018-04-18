@@ -41,6 +41,7 @@
 
 using namespace std;
 
+// Graph: class for a depth-first search graph
 class Graph
 {
   public:
@@ -52,17 +53,22 @@ class Graph
         kMaxSibling = 4,
         kMaxVertex = 5 * 5,
     };
+    // ctor
     Graph();
+    // create graph by width/height/stop_xy
     bool create(const int width, const int height, const int* stop_xy, const int stopper_cnt);
+    // dfs search graph from node to stop_node
     void dfs(const int node, const int stop_node, int& count, bool* visited) const;
+    // debug dump
     void dump(ostream& os) const;
 
   public:
+    // (x,y) to index helper
     static int xyToIndex(int x, int y, int width);
 
   private:
     int edge_[kMaxVertex][kMaxSibling];  // node index for upper/below/left/right
-    int num_vertex_;
+    int num_vertex_; // count of vertex
 };
 
 // ctor
@@ -71,7 +77,7 @@ Graph::Graph()
     num_vertex_ = 0;
 }
 
-// x,y to index helper
+// (x,y) to index helper
 inline int Graph::xyToIndex(int row, int col, int width)
 {
     return row * width + col;
@@ -168,6 +174,7 @@ void Graph::dfs(const int node, const int stop_node, int& count, bool* visited) 
     }
 }
 
+// debug dump
 void Graph::dump(ostream& os) const
 {
     os << "num_vertex_: " << num_vertex_ << endl;
